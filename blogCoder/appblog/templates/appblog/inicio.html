@@ -1,11 +1,31 @@
-{% extends 'appblog/base.html' %}
+{% extends 'appblog/base.html' %} {% block contenido_inicio %} .
+<div class="container-fluid text-center">
+  <form action="/post_random/" method="GET">
+    <input
+      name=""
+      id=""
+      class="btn btn-outline-primary text-center"
+      type="submit"
+      value="Ver post al azar!"
+    />
+  </form>
 
-{% block contenido_inicio %}
-
-    <h1 class="text-center">Inicio</h1>
-    <p class="text-start">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur, tenetur. Iusto tempore similique odit sint, animi itaque eaque reiciendis! Impedit, odit ipsa dolor earum eveniet porro reprehenderit numquam! Suscipit corporis maxime, fugit, repellat dicta molestias non quos assumenda excepturi voluptas labore esse rem nobis, obcaecati dolorem? Voluptate dolores, expedita numquam ipsam quaerat odio similique eligendi dolorem! Dolore a quae consequatur facere, similique doloremque tempora totam non harum. Magnam veritatis voluptas facilis dicta hic cupiditate explicabo molestiae ab eius voluptate, ipsa reiciendis sunt, expedita tempore labore id deleniti ratione blanditiis necessitatibus esse quam possimus magni. Quod assumenda laboriosam natus magnam, eligendi molestias distinctio. Dolore praesentium quidem quae, cumque aliquid in consequuntur, ipsum nesciunt ratione aperiam nulla, optio enim quis vel molestiae!</p>
-
+  <h1 class="text-center m-5">Inicio</h1>
+  <p class="text-start">
+    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur,
+    tenetur. Iusto tempore similique odit sint, animi itaque eaque reiciendis!
+    Impedit, odit ipsa dolor earum eveniet porro reprehenderit numquam! Suscipit
+    corporis maxime, fugit, repellat dicta molestias non quos assumenda
+    excepturi voluptas labore esse rem nobis, obcaecati dolorem? Voluptate
+    dolores, expedita numquam ipsam quaerat odio similique eligendi dolorem!
+    Dolore a quae consequatur facere, similique doloremque tempora totam non
+    harum. Magnam veritatis voluptas facilis dicta hic cupiditate explicabo
+    molestiae ab eius voluptate, ipsa reiciendis sunt, expedita tempore labore
+    id deleniti ratione blanditiis necessitatibus esse quam possimus magni. Quod
+    assumenda laboriosam natus magnam, eligendi molestias distinctio. Dolore
+    praesentium quidem quae, cumque aliquid in consequuntur, ipsum nesciunt
+    ratione aperiam nulla, optio enim quis vel molestiae!
+  </p>
+</div>
 
 {% endblock contenido_inicio %}
-
-

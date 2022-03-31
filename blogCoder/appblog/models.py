@@ -9,3 +9,7 @@ class Posteos_nuevos(models.Model):
     titulo = models.CharField(max_length=30)
     post = models.TextField(max_length=200)
 
+class Post_random(models.Model):
+    
+    id = models.IntegerField(primary_key=True)
+    

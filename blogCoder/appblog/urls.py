@@ -7,5 +7,6 @@ urlpatterns = [
     path('publicados/', Publicados, name='publicados'),
     path('publicados/<int:id>/', Post, name='post'),
     path('nuevo_post/', Nuevo_posteo, name='nuevo_post'),
+    path('post_random/', Post_random, name='post_random'),
 
 ]

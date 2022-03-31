@@ -1,3 +1,4 @@
+from random import random
 from django.shortcuts import render
 from appblog.forms import Nuevo_post
 from appblog.models import *
@@ -51,6 +52,17 @@ def Post(request, id):
     post = Posteos_nuevos.objects.get(id=id)
     
     return render(request, 'appblog/post.html', {'post': post})
+
+
+def Post_random(request):
+    
+    if request.method == 'GET':
+        posts = Posteos_nuevos.objects.all()
+        post_random = posts[int(random()*len(posts))]
+        
+        return render(request, 'appblog/post.html', {'post': post_random})
+        
+    
 
 
 
