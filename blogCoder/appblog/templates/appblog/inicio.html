@@ -1,4 +1,25 @@
-{% extends 'appblog/base.html' %} {% block contenido_inicio %} .
+{% extends 'appblog/base.html' %}  
+
+{% block masthead %}
+<header class="masthead " style="background: rgb(149,0,255);
+background: linear-gradient(45deg, rgba(149,0,255,1) 0%, rgba(178,220,255,1) 50%, rgba(26,255,233,1) 100%);">
+  <div class="container position-relative px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5 justify-content-center">
+          <div class="col-md-10 col-lg-8 col-xl-7">
+              <div class="site-heading">
+                  {% if request.user.is_authenticated %}
+
+                   <h2>¡Hola {{user.username}}!</h2>
+                  {% endif %}
+                  <span class="subheading">Estás en mi primer blog con Django.</span>
+              </div>
+          </div>
+      </div>
+  </div>
+</header>
+{% endblock masthead %}
+{% block contenido_inicio %}
+
 <div class="container-fluid text-center">
   <form action="/post_random/" method="GET">
     <input
@@ -9,6 +30,7 @@
       value="Ver post al azar!"
     />
   </form>
+  <p class="text-primary">{{aviso}}</p>
 
   <h1 class="text-center m-5">Inicio</h1>
   <p class="text-start">

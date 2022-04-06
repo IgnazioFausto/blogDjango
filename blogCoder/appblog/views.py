@@ -1,15 +1,16 @@
-from dataclasses import fields
 from random import random
-from django.shortcuts import render
-from appblog.forms import Nuevo_post
+from django.shortcuts import render, redirect
+from appblog.forms import Nuevo_post, Usuario_registro
 from appblog.models import *
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-
-# Views basadas en clases
-
+#autenticacion django
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -18,6 +19,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 def Inicio(request):
     return render(request, 'appblog/inicio.html')
 
+@login_required(login_url='/login/')
 def Nuevo_posteo(request):
     
     if request.method == 'POST':
@@ -31,9 +33,11 @@ def Nuevo_posteo(request):
  
             post_nuevo.save()
             
-            posteo = Nuevo_post()
             
-            return render(request, "appblog/publicados.html")      
+            
+            return redirect('/publicados/{}'.format(post_nuevo.id))
+        else:
+            return render(request, 'appblog/nuevo_post.html', {'form': posteo, 'error': 'Formulario no válido'})
     else:
         posteo = Nuevo_post()
       
@@ -63,10 +67,15 @@ def Post_random(request):
     
     if request.method == 'GET':
         posts = Posteos_nuevos.objects.all()
-        post_random = posts[int(random()*len(posts))]
+        if len(posts) > 0:
+            post = posts[int(random()*len(posts))]
+            return render(request, 'appblog/post.html', {'post': post, 'mensaje': ''})
+        else:
+            return render(request, 'appblog/inicio.html', {'aviso': 'No hay posts para mostrar. Ingresa y publica uno!'})
         
-        return render(request, 'appblog/post.html', {'post': post_random})
         
+
+@login_required(login_url='/login/')
 def Eliminar_post(request, id):
     try:
         post = Posteos_nuevos.objects.get(id=id)
@@ -74,10 +83,11 @@ def Eliminar_post(request, id):
         post.delete()
         
     
-        return render(request, 'appblog/inicio.html')
+        return redirect('/publicados/')
     except Exception as exc:
         return render(request, 'appblog/publicados.html')
 
+@login_required(login_url='/login/')
 def Editar_post(request, id):
    
     post_a_editar = Posteos_nuevos.objects.get(id=id)
@@ -103,6 +113,8 @@ def Editar_post(request, id):
         
         return render(request, 'appblog/nuevo_post.html', {'posteo': formulario,'titulo': "Editando", 'cta': "Confirmar cambios"})
 
+
+# Views basadas en clases
 class Lista_post(ListView):
     
     model = Posteos_nuevos
@@ -113,7 +125,7 @@ class Detalle_post(DetailView):
     model = Posteos_nuevos
     template_name = 'appblog/detalle_post.html'
 
-class Crear_post(CreateView):
+class Crear_post(LoginRequiredMixin, CreateView):
     
     model = Posteos_nuevos
     fields = ['titulo', 'post']
@@ -131,3 +143,46 @@ class Borrar_post(DeleteView):
     template_name = 'appblog/confirm_borrar.html'
     success_url = '/posts/listado/'
 
+def login_form(request):
+    
+    if request.method == "POST":
+        
+        formulario = AuthenticationForm(request, data=request.POST)
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            
+            username = data['username']
+            contrasenia = data['password']
+            
+            user = authenticate(username=username, password=contrasenia)
+            
+            if user is not None:
+                login(request, user)
+                return render(request, 'appblog/inicio.html', {'mensaje': username})
+            else:
+                return render(request, 'appblog/login.html', {'form': formulario, 'mensaje': 'Usuario o contraseña incorrectos'})
+        else:
+            return render(request, 'appblog/login.html', {'form': formulario, 'mensaje': 'Formulario no válido'})
+    else:
+        form = AuthenticationForm()
+        return render(request, 'appblog/login.html', {'form': form})
+
+def registro(request):
+    
+    if request.method == "POST":
+        form = Usuario_registro(request.POST)
+        
+        if form.is_valid():
+            usuario = form.cleaned_data['username']
+            
+            
+            form.save()
+            return render(request, 'appblog/inicio.html', {'mensaje': usuario})
+        else:
+            return render(request, 'appblog/registro.html', {'form': form, 'mensaje': 'Formulario no válido'})
+    else:
+        form = Usuario_registro()
+        return render(request, 'appblog/registro.html', {'form': form})
+        
+        
+        

@@ -1,11 +1,29 @@
-{% extends 'appblog/base.html' %} {% block contenido_inicio %}
+{% extends 'appblog/base.html' %}
+{% block masthead %}
+<header class="masthead " style="background: rgb(149,0,255);
+background: linear-gradient(45deg, rgba(149,0,255,1) 0%, rgba(178,220,255,1) 50%, rgba(26,255,233,1) 100%);">
+  <div class="container position-relative px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5 justify-content-center">
+          <div class="col-md-10 col-lg-8 col-xl-7">
+              <div class="site-heading">
+                  <h1> {{post.titulo}} </h1>
+                  <span class="subheading">Escrito por Pepito</span>
+                  <span class="subheading">11/04/22</span>
+              </div>
+          </div>
+      </div>
+  </div>
+</header>
+{% endblock masthead %}
+
+{% block contenido_inicio %}
 
 <div class="container mb-5">
   <div class="row">
     <div class="col-md-12 mb-5">
-      <h1>{{ post.titulo }}</h1>
       <p>{{ post.post }}</p>
     </div>
+    {% if request.user.is_authenticated %}
     <div class="row text-center mt-5 border-top">
       <div class="col-md-12 p-2">
         <button class="btn btn-outline-success">
@@ -16,6 +34,7 @@
         </button>
       </div>
     </div>
+    {% endif %}
   </div>
 
 
