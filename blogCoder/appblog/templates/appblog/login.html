@@ -19,19 +19,24 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'appblog/css/styles.css' %}" rel="stylesheet" />
-    <title>Login Blog</title>
+    <title>Ingresar</title>
 </head>
 <body  style="display:flex; height: 100vh;padding:0;margin:0;background: rgb(149,0,255);
 background: linear-gradient(45deg, rgba(149,0,255,1) 0%, rgba(178,220,255,1) 50%, rgba(26,255,233,1) 100%);">
     
-    <form style="margin:auto; text-align:end; justify-content:center; font-weight:bold"  method="POST">
+    <form style="margin:auto; text-align:center; justify-content:center; font-weight:bold"  method="POST">
         {% csrf_token %}
 
         {{form.as_p}}
-
+        <button class="btn btn-outline-light me-3" type="">  <a href="{% url 'inicio' %}">
+     
+            Ir a inicio
+          </a></button>
         <button class="btn btn-primary" type="submit">Iniciar sesion</button>
+        
 
     </form>
+    
     <p style="color:red; font-weight: bold">{{mensaje}}</p>
     
 </body>

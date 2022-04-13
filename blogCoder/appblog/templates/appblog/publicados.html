@@ -8,9 +8,15 @@ background: linear-gradient(45deg, rgba(149,0,255,1) 0%, rgba(178,220,255,1) 50%
           <div class="col-md-10 col-lg-8 col-xl-7">
               <div class="site-heading">
 
-                  <span class="subheading">Mira los posts publicados</span>
+                {% if posts %}
+                  <h1 class="text-white">{{Posteos_nuevos.count}}</h1>   <span class="subheading">Mira los posts publicados</span>
+                  {% else %}
+            
+                <span class="subheading">No hay posteos aún...</span>
+             
+                {% endif %}
               </div>
-          </div>
+            </div>
       </div>
   </div>
 </header>
@@ -19,6 +25,8 @@ background: linear-gradient(45deg, rgba(149,0,255,1) 0%, rgba(178,220,255,1) 50%
 
 {% block contenido_inicio %}
 
+{% if Posteos_nuevos is empty %}
+{% else %}
 <form action="" method="get">
   <div class="row">
     <div class="col-md-12">
@@ -36,12 +44,19 @@ background: linear-gradient(45deg, rgba(149,0,255,1) 0%, rgba(178,220,255,1) 50%
     </div>
   </div>
 </form>
+  {% endif %}
 
 {% for post in posts %}
 
 <div class="text-center border-top mt-3">
-  <h2 class="mt-5"><a href="{{post.id}}/">{{post.titulo}}</a></h2>
-  <p class="text-start">{{ post.post }}</p>
+  <h2 style="word-break: break-word" class="mt-5">{{post.titulo}}</h2>
+  <p style="word-break: break-word; height:6rem; overflow: hidden" class="text-start">{{ post.post }}</p>
+  <p class="text-center">
+    <small>
+      <a class="" style="font-weight:bold" href="{{post.id}}/">Seguir leyendo<i class="fa-solid fa-arrow-right ms-1"></i
+        ></a>
+    </small>
+  </p>
 </div>
 
 {% endfor %} 

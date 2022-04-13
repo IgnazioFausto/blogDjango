@@ -26,14 +26,13 @@
             >Publicados</a
           >
         </li>
+        {% if request.user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'nuevo_post'%}"
             >Nuevo post</a
           >
         </li>
 
-        {% if request.user.is_authenticated %}
-        <li class="nav-item"><a href="#"  class="nav-link px-lg-3 py-3 py-lg-4" style="color:#6f42c1;">{{user.username}}</a></li>
         <li class="nav-item">
           <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'logout'%}"
             >Logout<i class="fa-solid fa-arrow-right-from-bracket ms-1"></i
@@ -43,10 +42,32 @@
         {% else %}
         <li class="nav-item">
           <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'login_form'%}"
-            >Login<i class="fa-solid fa-right-to-bracket ms-1"></i
+            >Login<i class="fa-solid fa-circle-left ms-1"></i
           ></a>
         </li>
+
         {% endif %}
+        <li class="nav-item">
+          <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'registro'%}"
+            >Registrarme<i class="ms-1 fa-solid fa-arrow-up-from-bracket"></i
+          ></a>
+        </li>
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a
+            href="#"
+            class="nav-link px-lg-3 py-1 py-lg-4"
+            style="color: #6f42c1"
+            >{{user.username}}<img class="ms-1" src="{{imagen}}" alt="avatar" style="width: 25px; height: 25px; border-radius: 50%;"></a
+          >
+          
+          
+        </li>
+        {% endif %}
+      
+        
+        
+          
       </ul>
     </div>
   </div>

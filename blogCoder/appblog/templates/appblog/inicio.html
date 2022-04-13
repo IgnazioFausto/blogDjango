@@ -8,8 +8,11 @@ background: linear-gradient(45deg, rgba(149,0,255,1) 0%, rgba(178,220,255,1) 50%
           <div class="col-md-10 col-lg-8 col-xl-7">
               <div class="site-heading">
                   {% if request.user.is_authenticated %}
-
+                   <img src="{{ imagen }}" class="rounded-circle" alt="img-profile" width="100" height="100">
                    <h2>¡Hola {{user.username}}!</h2>
+                  {% endif %}
+                  {% if registraste %}
+                  <span class="subheading">¡Te registraste con éxito {{registraste}}! </hr> ¡Ingresa!</span>
                   {% endif %}
                   <span class="subheading">Estás en mi primer blog con Django.</span>
               </div>

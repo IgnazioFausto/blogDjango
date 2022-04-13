@@ -1,38 +1,89 @@
-{% extends 'appblog/base.html' %}
 
-{% block masthead %}
-<header class="masthead " style="background: rgb(149,0,255);
-background: linear-gradient(45deg, rgba(149,0,255,1) 0%, rgba(178,220,255,1) 50%, rgba(26,255,233,1) 100%);">
-  <div class="container position-relative px-4 px-lg-5">
-      <div class="row gx-4 gx-lg-5 justify-content-center">
-          <div class="col-md-10 col-lg-8 col-xl-7">
-              <div class="site-heading">
 
-                  <span class="subheading">Publica un nuevo post</span>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        {% load static %}
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Mi Blog</title>
+        <link rel="icon" type="image/x-icon" href="{% static 'appblog/assets/img/favicon.ico' %} " />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'appblog/css/styles.css' %}" rel="stylesheet" />
+    </head>
+    <body>
+    
+        <!-- Page Header-->
+       
+
+        {% if errors %}
+            {% for error in errors %}
+                {{error}}
+            {% endfor %}
+        {% endif %}
+
+     
+        <header class="masthead " style="background: rgb(149,0,255);
+        background: linear-gradient(45deg, rgba(149,0,255,1) 0%, rgba(178,220,255,1) 50%, rgba(26,255,233,1) 100%);">
+          <div class="container position-relative px-4 px-lg-5">
+              <div class="row gx-4 gx-lg-5 justify-content-center">
+                  <div class="col-md-10 col-lg-8 col-xl-7">
+                      <div class="site-heading">
+        
+                          <span class="subheading">{{titulo}} </br> como <i> {{user.username}} </i> </span>
+                          
+                      </div>
+                  </div>
               </div>
           </div>
-      </div>
-  </div>
-</header>
-{% endblock masthead %}
+        </header>
+ 
+        <!-- Main Content-->
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                   
+       
+                  <div class="container text-center border-top mb-5 p-5">
+                  
+                    <form action="" method="POST">
+                  
+                      {%csrf_token%}
+                  
+                      <table style="word-break: break-word" class="my-1">
+                        {{posteo.titulo}}
+                      </table>
+                      <table style="word-break: break-word" class="my-5">
+                        {{posteo.contenido}}
+                      </table>
+                      <p>{{error}}</p>
+                  
+                      <a class="btn btn-secondary" href="{% url 'inicio' %}">Volver</a>
+                      <input class="btn btn-primary" type="submit" value="{{cta}}" />
 
- {% block contenido_inicio %}
+                    
+                  </form>
+                  </div>
+                    
+                 
+                </div>
+            </div>
+        </div>
 
-<h1 class="text-center">{{titulo}}</h1>
-<div class="container text-center border-top mb-5">
+        {% include 'appblog/components/footer.html' %}
 
-  <form action="" method="POST">
-
-    {%csrf_token%}
-
-    <table class="m-5">
-      {{posteo.as_table}}
-    </table>
-    <p>{{error}}</p>
-
-    <input class="btn btn-primary" type="submit" value="{{cta}}" />
-  
-</form>
-</div>
-
-{% endblock contenido_inicio %}
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'appblog/js/scripts.js' %}"></script>
+    </body>
+</html>
