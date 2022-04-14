@@ -164,6 +164,11 @@ def Nuevo_posteo(request):
     return render(request, 'appblog/nuevo_post.html', {'posteo': posteo, 'titulo': 'Escribir post', 'cta': 'Publicar'})
 
 def Post_random(request):
+    if request.user.is_authenticated:
+        avatar = Avatar.objects.filter(usuario = request.user)
+    
+        if len(avatar) > 0:
+            imagen = avatar[0].img.url
     
     if request.method == 'GET':
         posts = Posteos_nuevos.objects.all()
@@ -171,7 +176,7 @@ def Post_random(request):
             post = posts[int(random()*len(posts))]
             return redirect('/posts/publicados/{}'.format(post.id))
         else:
-            return render(request, 'appblog/inicio.html', {'aviso': 'No hay posts para mostrar. Ingresa y publica uno!'})
+            return render(request, 'appblog/inicio.html', {'aviso': 'No hay posts para mostrar. Ingresa y publica uno!', 'imagen': imagen})
         
 
 @login_required(login_url='/login/')
