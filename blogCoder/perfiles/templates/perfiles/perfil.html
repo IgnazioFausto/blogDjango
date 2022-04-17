@@ -1,0 +1,83 @@
+{% extends 'appblog/base.html' %} {% block masthead %}
+<header
+  class="masthead"
+  style="
+    background: rgb(149, 0, 255);
+    background: linear-gradient(
+      45deg,
+      rgba(149, 0, 255, 1) 0%,
+      rgba(178, 220, 255, 1) 50%,
+      rgba(26, 255, 233, 1) 100%
+    );
+  "
+>
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="site-heading">
+          {% if request.user.is_authenticated %} 
+            {% if imagen %}
+              <div class="text-center">
+                <img
+                src="{{ imagen }}"
+                class="rounded-circle"
+                style="
+                  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+                    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+                "
+                alt="img-profile"
+                width="300"
+                height="300"
+                />
+              </div>
+              <a
+                href="{% url 'cargar_imagen' %}"
+                class="btn btn-outline-light btn-lg mt-5"
+                >Cambiar foto</a
+              >
+     
+            {% else %}
+              <a
+              href="{% url 'cargar_imagen' %}"
+              class="btn btn-outline-light btn-lg mt-5"
+              >Subir Foto
+              </a>
+            {% endif %}
+           {% endif %}
+          <ul class="list-group list-group-flush" style="margin-top: 2rem">
+            <li
+              class="list-group-item text-white"
+              style="background-color: transparent"
+            >
+              <b>Usuario:</b> {{user.username}}
+            </li>
+            <li
+              class="list-group-item text-white"
+              style="background-color: transparent"
+            >
+              <b>Nombre:</b> {{ user.first_name }}
+            </li>
+            <li
+              class="list-group-item text-white"
+              style="background-color: transparent"
+            >
+              <b>Apellido:</b> {{ user.last_name }}
+            </li>
+            <li
+              class="list-group-item text-white"
+              style="background-color: transparent"
+            >
+              <b>Email:</b> {{ user.email }}
+            </li>
+          </ul>
+          <a
+            href="{% url 'actualizar_usuario' %}"
+            class="btn btn-outline-light btn-lg mt-5"
+            >Cambiar datos</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock masthead %}

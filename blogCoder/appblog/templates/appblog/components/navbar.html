@@ -18,19 +18,19 @@
       <ul class="navbar-nav ms-auto py-4 py-lg-0">
         <li class="nav-item">
           <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'inicio'%}"
-            >Inicio</a
-          >
+            >Inicio<i class="fa-solid fa-house ms-1"></i
+          ></a>
         </li>
         <li class="nav-item">
           <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'publicados'%}"
-            >Publicados</a
-          >
+            >Publicados<i class="fa-regular fa-folder-open ms-1"></i
+          ></a>
         </li>
         {% if request.user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'nuevo_post'%}"
-            >Nuevo post</a
-          >
+            >Nuevo post <i class="fa-solid fa-pen-to-square ms-1"></i
+          ></a>
         </li>
 
         <li class="nav-item">
@@ -55,19 +55,25 @@
         {% if request.user.is_authenticated %}
         <li class="nav-item">
           <a
-            href="#"
+            href="{% url 'perfil'  %}"
             class="nav-link px-lg-3 py-1 py-lg-4"
             style="color: #6f42c1"
-            >{{user.username}}<img class="ms-1" src="{{imagen}}" alt="avatar" style="width: 25px; height: 25px; border-radius: 50%;"></a
-          >
-          
-          
+            >{{user.username}} {% if imagen %}
+            <img
+              class="ms-1"
+              src="{{imagen}}"
+              alt="avatar"
+              style="width: 25px; height: 25px; border-radius: 50%"
+            />{% endif %}
+          </a>
         </li>
         {% endif %}
-      
-        
-        
-          
+
+        <li class="nav-item">
+          <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'sobre_mi'%}"
+            >Sobre el autor<i class="fa-solid fa-address-card ms-1"></i
+          ></a>
+        </li>
       </ul>
     </div>
   </div>

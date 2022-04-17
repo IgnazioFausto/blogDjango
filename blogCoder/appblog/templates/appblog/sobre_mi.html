@@ -1,0 +1,62 @@
+{% extends 'appblog/base.html' %}
+{% load static %}
+
+{% block masthead %}
+<header
+  class="masthead"
+  style="
+    background: rgb(149, 0, 255);
+    background: linear-gradient(
+      45deg,
+      rgba(149, 0, 255, 1) 0%,
+      rgba(178, 220, 255, 1) 50%,
+      rgba(26, 255, 233, 1) 100%
+    );
+  ">
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="site-heading">
+          <span class="subheading">Sobre el autor del blog</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock masthead %} 
+    
+
+{% block contenido_inicio %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto text-center">
+      <img
+        src="{% static 'appblog/assets/img/autor.jpg' %}"
+        class="rounded-circle"
+        alt="Autor del blog"
+        width="200"
+        height="200"
+      />
+
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum
+        ullam eveniet pariatur voluptates odit, fuga atque ea nobis sit soluta
+        odio, adipisci quas excepturi maxime quae totam ducimus consectetur?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius
+        praesentium recusandae illo eaque architecto error, repellendus iusto
+        reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in
+        officia voluptas voluptatibus, minus!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut
+        consequuntur magnam, excepturi aliquid ex itaque esse est vero natus
+        quae optio aperiam soluta voluptatibus corporis atque iste neque sit
+        tempora!
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock contenido_inicio %}
