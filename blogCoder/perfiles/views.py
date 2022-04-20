@@ -39,21 +39,22 @@ def actualizar_usuario(request):
             
             data = form.cleaned_data
             
-     
+            usuario.first_name = data['first_name']
+            usuario.last_name = data['last_name']
             usuario.email = data['email']
             usuario.set_password(data['password1'])
             usuario.set_password(data['password2'])
             
             usuario.save()
             
-            return redirect('inicio')
+            return redirect('login_form')
         else: 
-            return render(request, 'appblog/actualizar_usuario.html', {'form': form, 'mensaje': 'Formulario no válido'})
+            return render(request, 'perfiles/actualizar_usuario.html', {'form': form, 'mensaje': 'Formulario no válido'})
     else:
-        form = Usuario_editar(initial={'email': request.user.email})
+        form = Usuario_editar(initial={'email': request.user.email, 'first_name': request.user.first_name, 'last_name': request.user.last_name})
 
         
-        return render(request, 'appblog/actualizar_usuario.html', {'form': form})
+        return render(request, 'perfiles/actualizar_usuario.html', {'form': form})
   
 #login, registro
 def login_form(request):
@@ -76,7 +77,9 @@ def login_form(request):
     
                     if len(avatar) > 0:
                         imagen = avatar[0].img.url
-                return render(request, 'appblog/inicio.html',{'imagen': imagen})
+                        return render(request, 'appblog/inicio.html',{'imagen': imagen})
+                    else:
+                        return render(request, 'appblog/inicio.html')
             else:
                 return render(request, 'appblog/login.html', {'form': formulario, 'mensaje': 'Usuario o contraseña incorrectos'})
         else:
@@ -98,12 +101,12 @@ def registro(request):
             
             
             form.save()
-            return redirect('/')
+            return redirect('login_form')
         else:
-            return render(request, 'appblog/registro.html', {'form': form, 'registraste': 'Formulario no válido'})
+            return render(request, 'perfiles/registro.html', {'form': form, 'registraste': 'Formulario no válido'})
     else:
         form = Usuario_registro()
-        return render(request, 'appblog/registro.html', {'form': form})
+        return render(request, 'perfiles/registro.html', {'form': form})
 
 #avatars
 @login_required(login_url='login/')

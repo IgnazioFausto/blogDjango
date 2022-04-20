@@ -8,7 +8,7 @@ background: linear-gradient(45deg, rgba(149,0,255,1) 0%, rgba(178,220,255,1) 50%
               <div class="site-heading">
                   <h1 style="word-break: break-word"> {{post.titulo}} </h1>
                   <span class="subheading">Escrito por Pepito</span>
-                  <span class="subheading">11/04/22</span>
+                  <span class="subheading">{{post.fecha}}</span>
               </div>
           </div>
       </div>
@@ -21,14 +21,14 @@ background: linear-gradient(45deg, rgba(149,0,255,1) 0%, rgba(178,220,255,1) 50%
 <div class="container mb-5">
   <div class="row">
     <div class="col-md-12 mb-5">
-      <p style="word-break: break-word">{{post.post}}</p> 
+      <p style="word-break: break-word">{{post.post|safe}}</p> 
     
     </div>
     {% if request.user.is_authenticated %}
     <div class="row text-center mt-5 border-top">
       <div class="col-md-12 p-2">
         <button class="btn btn-outline-success">
-          <a href="{% url 'editar_post' post.id%} ">Editar post</a>
+          <a href="{% url 'editar_post' post.id%}">Editar post</a>
         </button>
         <button class="btn btn-outline-danger">
           <a href="{% url 'eliminar_posts' post.id%} ">Eliminar post</a>

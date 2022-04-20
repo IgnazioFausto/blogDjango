@@ -5,6 +5,7 @@
     <head>
 
         {% load static %}
+        
 
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -53,18 +54,16 @@
                 <div class="col-md-10 col-lg-8 col-xl-7">
                    
        
-                  <div class="container text-center border-top mb-5 p-5">
+                  <div class="container text-center border-top ">
                   
                     <form action="" method="POST">
                   
                       {%csrf_token%}
                   
-                      <table style="word-break: break-word" class="my-1">
-                        {{posteo.titulo}}
-                      </table>
-                      <table style="word-break: break-word" class="my-5">
-                        {{posteo.contenido}}
-                      </table>
+                      {{ posteo.media }}
+                      {{ posteo.as_p }} 
+                     
+
                       <p>{{error}}</p>
                   
                       <a class="btn btn-secondary" href="{% url 'inicio' %}">Volver</a>

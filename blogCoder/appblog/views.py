@@ -38,12 +38,13 @@ def Publicados(request):
     else:
         imagen = ''
     
-    posts = Posteos_nuevos.objects.all()
+    posts = Posteos_nuevos.objects.all().order_by('-fecha')
     
     if request.method == 'GET':
         buscar = request.GET.get('buscar')
         if buscar:
             posts = Posteos_nuevos.objects.filter(titulo__icontains=buscar)
+            
     
     
     
@@ -74,7 +75,7 @@ def Nuevo_posteo(request):
             
             data = posteo.cleaned_data
             
-            post_nuevo = Posteos_nuevos(titulo=data['titulo'], post=data['contenido'])
+            post_nuevo = Posteos_nuevos(titulo=data['titulo'], post=data['post'], fecha=data['fecha'])
    
             post_nuevo.save()
             
@@ -87,7 +88,7 @@ def Nuevo_posteo(request):
         posteo = Nuevo_post()
       
         
-    return render(request, 'appblog/nuevo_post.html', {'posteo': posteo, 'titulo': 'Escribir post', 'cta': 'Publicar'})
+        return render(request, 'appblog/nuevo_post.html', {'posteo': posteo, 'titulo': 'Escribir post', 'cta': 'Publicar'})
 
 def Post_random(request):
     
@@ -126,7 +127,7 @@ def Editar_post(request, id):
             data = formulario_edicion.cleaned_data
             
             post_a_editar.titulo = data['titulo']
-            post_a_editar.post = data['contenido']
+            post_a_editar.post = data['post']
             
             post_a_editar.save()
             
@@ -136,7 +137,7 @@ def Editar_post(request, id):
     else: 
         
         
-        formulario = Nuevo_post(initial={'titulo': post_a_editar.titulo, 'contenido': post_a_editar.post})
+        formulario = Nuevo_post(initial={'titulo': post_a_editar.titulo, 'post': post_a_editar.post})
         
         return render(request, 'appblog/nuevo_post.html', {'posteo': formulario,'titulo': "Editar", 'cta': "Confirmar cambios", 'imagen': imagen})
 

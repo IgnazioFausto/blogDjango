@@ -44,30 +44,31 @@
               </a>
             {% endif %}
            {% endif %}
-          <ul class="list-group list-group-flush" style="margin-top: 2rem">
+          <ul class="list-group list-group-flush text-justify" style="margin-top: 2rem">
             <li
               class="list-group-item text-white"
               style="background-color: transparent"
             >
-              <b>Usuario:</b> {{user.username}}
+              <b class="text-dark">Usuario:</b> <p style="display:inline;font-size:2rem">{{user.username}}</p>
             </li>
             <li
               class="list-group-item text-white"
               style="background-color: transparent"
             >
-              <b>Nombre:</b> {{ user.first_name }}
+              <b class="text-dark">Nombre completo: </b><p style="display:inline;font-size:2rem"> {{ user.first_name   }} {{ user.last_name }} </p>
+            </li>
+           
+            <li
+              class="list-group-item text-white"
+              style="background-color: transparent"
+            >
+              <b class="text-dark">Email:</b> <p style="display:inline;font-size:2rem">{{ user.email }} </p>
             </li>
             <li
               class="list-group-item text-white"
               style="background-color: transparent"
             >
-              <b>Apellido:</b> {{ user.last_name }}
-            </li>
-            <li
-              class="list-group-item text-white"
-              style="background-color: transparent"
-            >
-              <b>Email:</b> {{ user.email }}
+              <b class="text-dark">Sitio web:</b> <p style="display:inline;font-size:2rem"> {{ request.user.website }} </p>
             </li>
           </ul>
           <a
