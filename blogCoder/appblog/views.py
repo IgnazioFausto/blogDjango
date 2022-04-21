@@ -70,12 +70,12 @@ def Nuevo_posteo(request):
     
     if request.method == 'POST':
         
-        posteo = Nuevo_post(request.POST)
+        posteo = Nuevo_post(request.POST, request.FILES)
         if posteo.is_valid():
             
             data = posteo.cleaned_data
             
-            post_nuevo = Posteos_nuevos(titulo=data['titulo'], post=data['post'], fecha=data['fecha'])
+            post_nuevo = Posteos_nuevos(titulo=data['titulo'],img=data['img'], post=data['post'], fecha=data['fecha'] )
    
             post_nuevo.save()
             
@@ -121,7 +121,7 @@ def Editar_post(request, id):
     post_a_editar = Posteos_nuevos.objects.get(id=id)
     
     if request.method == 'POST':
-        formulario_edicion = Nuevo_post(request.POST)
+        formulario_edicion = Nuevo_post(request.POST, request.FILES, instance=post_a_editar)
         if formulario_edicion.is_valid():
             
             data = formulario_edicion.cleaned_data

@@ -10,6 +10,7 @@ class Posteos_nuevos(models.Model):
     
     id = models.AutoField(primary_key=True)
     titulo = models.CharField(max_length=60)
+    img = models.ImageField(null=True)
     post = RichTextField(blank=True, null=True)
     fecha = models.DateTimeField(auto_now_add=True)
     
