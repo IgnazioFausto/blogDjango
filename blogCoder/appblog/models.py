@@ -13,7 +13,7 @@ class Posteos_nuevos(models.Model):
     img = models.ImageField(null=True)
     post = RichTextField(blank=True, null=True)
     fecha = models.DateTimeField(auto_now_add=True)
-    
+    autor = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     
         
     

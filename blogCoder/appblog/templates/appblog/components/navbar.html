@@ -45,13 +45,13 @@
             >Login<i class="fa-solid fa-circle-left ms-1"></i
           ></a>
         </li>
-
-        {% endif %}
         <li class="nav-item">
           <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'registro'%}"
             >Registrarme<i class="ms-1 fa-solid fa-arrow-up-from-bracket"></i
           ></a>
         </li>
+        {% endif %}
+        
         {% if request.user.is_authenticated %}
         <li class="nav-item">
           <a

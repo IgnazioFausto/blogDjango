@@ -1,31 +1,41 @@
-{% extends 'appblog/base.html' %}
-{% block masthead %}
-<header class="masthead " style="background: rgb(149,0,255);
-background: linear-gradient(45deg, rgba(149,0,255,1) 0%, rgba(178,220,255,1) 50%, rgba(26,255,233,1) 100%);">
+{% extends 'appblog/base.html' %} {% block masthead %}
+<header
+  class="masthead"
+  style="
+    background: rgb(149, 0, 255);
+    background: linear-gradient(
+      45deg,
+      rgba(149, 0, 255, 1) 0%,
+      rgba(178, 220, 255, 1) 50%,
+      rgba(26, 255, 233, 1) 100%
+    );
+  "
+>
   <div class="container position-relative px-4 px-lg-5">
-      <div class="row gx-4 gx-lg-5 justify-content-center">
-          <div class="col-md-10 col-lg-8 col-xl-7">
-              <div class="site-heading">
-                  <h1 style="word-break: break-word"> {{post.titulo}} </h1>
-                  <span class="subheading">Escrito por Pepito</span>
-                  <span class="subheading">{{post.fecha}}</span>
-              </div>
-          </div>
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="site-heading">
+          <h1 style="word-break: break-word">{{post.titulo}}</h1>
+        
+          <span class="subheading">Escrito por {{post.autor}} </span>
+          
+          <span class="subheading">{{post.fecha}}</span>
+        </div>
       </div>
+    </div>
   </div>
 </header>
-{% endblock masthead %}
-
-{% block contenido_inicio %}
+{% endblock masthead %} {% block contenido_inicio %}
 
 <div class="container mb-5">
   <div class="row">
     <div class="col-md-12 mb-5">
-      <img class="img-fluid rounded" src="{{post.img.url}}" alt="">
-      <p style="word-break: break-word">{{post.post|safe}}</p> 
-    
+      <img class="img-fluid rounded" src="{{post.img.url}}" alt="" />
+      <p style="word-break: break-word">{{post.post|safe}}</p>
     </div>
     {% if request.user.is_authenticated %}
+    
+    {% if request.user.id == post.autor.id %}
     <div class="row text-center mt-5 border-top">
       <div class="col-md-12 p-2">
         <button class="btn btn-outline-success">
@@ -36,10 +46,8 @@ background: linear-gradient(45deg, rgba(149,0,255,1) 0%, rgba(178,220,255,1) 50%
         </button>
       </div>
     </div>
+  {% endif %}
     {% endif %}
   </div>
-
-
-
 </div>
-  {% endblock contenido_inicio %}
+{% endblock contenido_inicio %}

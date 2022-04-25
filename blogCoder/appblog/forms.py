@@ -14,9 +14,15 @@ class Nuevo_post(forms.ModelForm):
     img = models.ImageField(upload_to='img/')
     post = forms.CharField(widget=CKEditorWidget(), label='')
     fecha = forms.DateField(initial=datetime.datetime.today(), label='')
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    
+    def __str__(self):
+        return self.titulo + ' | ' + self.autor.username
+    
     class Meta:
         model = Posteos_nuevos
-        fields = '__all__'
+        fields = ['titulo', 'img', 'post']
         labels = {
             'post': '',
            

@@ -2,6 +2,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from appblog.models import Avatar
+from perfiles.models import Perfil
 from perfiles.forms import Usuario_registro
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm 
 from django.contrib.auth import login, authenticate
@@ -12,7 +13,7 @@ from perfiles.forms import Usuario_editar, AvatarFormulario
 # Create your views here.
 
 
-def Perfil(request):
+def Perfiles(request):
     
      if request.user.is_authenticated:
         avatar = Avatar.objects.filter(usuario = request.user)
@@ -29,23 +30,30 @@ def Perfil(request):
 @login_required(login_url='usuario/login/')
 def actualizar_usuario(request):
     
-    usuario = request.user
-
     
     if request.method == 'POST':
+        
         form = Usuario_editar(request.POST)
+        
         
         if form.is_valid():
             
             data = form.cleaned_data
+        
             
-            usuario.first_name = data['first_name']
-            usuario.last_name = data['last_name']
-            usuario.email = data['email']
-            usuario.set_password(data['password1'])
-            usuario.set_password(data['password2'])
             
-            usuario.save()
+            perfil = Perfil.objects.get(usuario = request.user)
+            
+            perfil.nombre = data['first_name']
+            perfil.apellido = data['last_name']
+            perfil.email = data['email']
+            perfil.bio = data['bio']
+            perfil.web = data['web']
+            
+            perfil.save()
+            
+           
+           
             
             return redirect('login_form')
         else: 
@@ -98,9 +106,14 @@ def registro(request):
         
         if form.is_valid():
             usuario = form.cleaned_data['username']
-            
-            
             form.save()
+            
+          
+            user = Perfil( usuario = form.save(), email = form.cleaned_data['email'])
+            user.save()
+            
+            
+            
             return redirect('login_form')
         else:
             return render(request, 'perfiles/registro.html', {'form': form, 'registraste': 'Formulario no válido'})

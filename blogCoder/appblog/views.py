@@ -35,6 +35,8 @@ def Publicados(request):
     
         if len(avatar) > 0:
             imagen = avatar[0].img.url
+        else:
+            imagen = ''
     else:
         imagen = ''
     
@@ -57,6 +59,8 @@ def Post(request, id):
     
         if len(avatar) > 0:
             imagen = avatar[0].img.url
+        else:
+            imagen = ''
     else:
         imagen = ''
     
@@ -75,7 +79,7 @@ def Nuevo_posteo(request):
             
             data = posteo.cleaned_data
             
-            post_nuevo = Posteos_nuevos(titulo=data['titulo'],img=data['img'], post=data['post'], fecha=data['fecha'] )
+            post_nuevo = Posteos_nuevos(titulo=data['titulo'],img=data['img'], post=data['post'], fecha=data['fecha'], autor=request.user)
    
             post_nuevo.save()
             
@@ -104,7 +108,9 @@ def Post_random(request):
     
                 if len(avatar) > 0:
                     imagen = avatar[0].img.url
-                return render(request, 'appblog/inicio.html', {'aviso': 'No hay posts para mostrar. Ingresa y publica uno!', 'imagen': imagen})
+                    return render(request, 'appblog/inicio.html', {'aviso': 'No hay posts para mostrar. Ingresa y publica uno!', 'imagen': imagen})
+                else:
+                    imagen = ''
             else:
                 return render(request, 'appblog/inicio.html', {'aviso': 'No hay posts para mostrar. Ingresa y publica uno!'})
         
@@ -116,6 +122,8 @@ def Editar_post(request, id):
     
         if len(avatar) > 0:
             imagen = avatar[0].img.url
+        else:
+            imagen = ''
             
         
     post_a_editar = Posteos_nuevos.objects.get(id=id)
@@ -155,6 +163,8 @@ def Sobre_mi(request):
     
         if len(avatar) > 0:
             imagen = avatar[0].img.url
+        else:
+            imagen = ''
     
         return render(request, 'appblog/sobre_mi.html', {'imagen': imagen})
     else:
