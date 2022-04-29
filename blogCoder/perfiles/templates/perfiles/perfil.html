@@ -86,7 +86,9 @@
               style="background-color: transparent"
             >
               <b class="text-dark">Sitio web:</b>
-              <p style="display: inline; font-size: 2rem">{{ user.perfil.web  }}</p>
+              <p style="display: inline; font-size: 2rem">
+                {{ user.perfil.web }}
+              </p>
             </li>
           </ul>
           <a
@@ -99,4 +101,30 @@
     </div>
   </div>
 </header>
-{% endblock masthead %}
+{% endblock masthead %} {% block contenido_inicio %}
+<div class="container text-center">
+  <h2 class=" mt-5"><b>Tus posts</b></h2>
+  <a href="{% url 'nuevo_post' %}" class="btn btn-outline-dark btn-lg">
+    Nuevo
+  </a>
+</div>
+{% for post in posts %}
+<div class="card mb-3 text-center mt-5">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <img src="{{ post.img.url }}" class="card-img" alt="imagen-post" />
+    </div>
+    <div class="col-md-8 text-center">
+      <div class="card-body">
+        <h2 class="card-title">{{ post.titulo }}</h2>
+        <a href="{% url 'post' post.id %}" class="btn btn-dark btn-sm">Ver</a>
+        <p class="card-text mt-0">
+          <small class="text-muted"> {{ post.fecha }} </small>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %} 
+{% endblock contenido_inicio %}

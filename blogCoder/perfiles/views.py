@@ -2,6 +2,9 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from appblog.models import Avatar
+from appblog.models import Posteos_nuevos
+from perfiles.models import Mensajes
+from perfiles.forms import Chats
 from perfiles.models import Perfil
 from perfiles.forms import Usuario_registro
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm 
@@ -15,13 +18,15 @@ from perfiles.forms import Usuario_editar, AvatarFormulario
 
 def Perfiles(request):
     
-     if request.user.is_authenticated:
+    posts = Posteos_nuevos.objects.filter(autor_id = request.user.id)
+    
+    if request.user.is_authenticated:
         avatar = Avatar.objects.filter(usuario = request.user)
     
         if len(avatar) > 0:
             imagen = avatar[0].img.url
             
-            return render(request, 'perfiles/perfil.html', {'imagen': imagen})
+            return render(request, 'perfiles/perfil.html', {'imagen': imagen, 'posts': posts})
         
         else:
             return render(request, 'perfiles/perfil.html')
@@ -146,3 +151,36 @@ def cargar_avatar(request):
                     
                 formulario = AvatarFormulario()
                 return render(request, 'perfiles/cargar_imagen.html', {'form': formulario})
+            
+            
+            
+@login_required(login_url='login/')
+def Mensajeria(request):
+    
+    
+        Usuarios = Perfil.objects.exclude(usuario = request.user)
+        
+        return render(request, 'perfiles/mensajeria.html', {'Usuarios': Usuarios})
+    
+def Chat(request, id):
+    
+    if request.method == 'POST':
+        
+        form = Chats(request.POST)
+        
+        if form.is_valid():
+            
+            data = form.cleaned_data
+            
+            mensaje = Mensajes(emisor = request.user, destinatario = Perfil.objects.get(id = id), mensaje = data['mensaje'])
+            mensaje.save()
+            
+            return redirect('chat', id)
+        else:
+            return render(request, 'perfiles/chat.html', {'form': form, 'mensaje': 'Formulario no válido'})
+    else:
+        mensajes_recibidos = Mensajes.objects.filter(destinatario = request.user)
+        mensajes_enviados = Mensajes.objects.filter(emisor = request.user)
+        form = Chats()
+        nombre = Perfil.objects.get(id = id)
+        return render(request, 'perfiles/chat.html', {'id': id, 'form': form, 'nombre': nombre, 'mensajes_recibidos': mensajes_recibidos, 'mensajes_enviados': mensajes_enviados})

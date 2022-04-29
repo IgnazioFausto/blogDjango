@@ -57,7 +57,9 @@ background: linear-gradient(45deg, rgba(149,0,255,1) 0%, rgba(178,220,255,1) 50%
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent; 
   -moz-background-clip: text;
-  -moz-text-fill-color: transparent;" class="mt-3">{{post.titulo|safe}}</h2>
+  -moz-text-fill-color: transparent;" class=" mb-0">{{post.titulo|safe}}</h2>
+  <p class="m-0" style="color: rgb(38,144,139);">{{post.autor}}</p>
+  <img src="{{post.img.url}}" style="margin-top:2rem;width:150px; height:150px; border: rgb(38,144,139) 2px solid" class="rounded-circle"  alt="Responsive image">
   <p style="word-break: break-word; overflow: hidden;  " class="text-start">{{ post.post|safe|slice:"800" }}</p>
   <p class="text-center">
     <small>

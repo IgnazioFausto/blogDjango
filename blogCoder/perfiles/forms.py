@@ -43,3 +43,12 @@ class Usuario_editar(UserCreationForm):
 class AvatarFormulario(forms.Form):
     
     imagen = forms.ImageField()
+    
+    
+    
+class Chats(forms.Form):
+    
+    mensaje = forms.CharField(max_length=200, label='')
+    
+    
+    

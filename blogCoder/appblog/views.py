@@ -69,7 +69,7 @@ def Post(request, id):
     return render(request, 'appblog/post.html', {'post': post, 'imagen': imagen})
 
 @login_required(login_url='/login/')
-def Nuevo_posteo(request):
+def Nuevo_posteo(request): 
     
     
     if request.method == 'POST':
@@ -145,7 +145,7 @@ def Editar_post(request, id):
     else: 
         
         
-        formulario = Nuevo_post(initial={'titulo': post_a_editar.titulo, 'post': post_a_editar.post})
+        formulario = Nuevo_post(initial={'titulo': post_a_editar.titulo, 'post': post_a_editar.post, 'img': post_a_editar.img})
         
         return render(request, 'appblog/nuevo_post.html', {'posteo': formulario,'titulo': "Editar", 'cta': "Confirmar cambios", 'imagen': imagen})
 
