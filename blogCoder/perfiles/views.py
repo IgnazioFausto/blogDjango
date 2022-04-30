@@ -161,9 +161,18 @@ def Mensajeria(request):
         Usuarios = Perfil.objects.exclude(usuario = request.user)
         
         return render(request, 'perfiles/mensajeria.html', {'Usuarios': Usuarios})
-    
+
+@login_required(login_url='login/')
 def Chat(request, id):
     
+    # chequeamos si el user esta autenticado para usar su avatar
+    if request.user.is_authenticated:
+        imagen = Avatar.objects.filter(usuario = request.user)
+        if len(imagen) > 0:
+            imagen = imagen[0].img.url
+            
+    
+    # si se envia un mensaje
     if request.method == 'POST':
         
         form = Chats(request.POST)
@@ -171,7 +180,7 @@ def Chat(request, id):
         if form.is_valid():
             
             data = form.cleaned_data
-            
+            # recogemos los datos del form para guardar el mensaje
             mensaje = Mensajes(emisor = request.user, destinatario = Perfil.objects.get(id = id), mensaje = data['mensaje'])
             mensaje.save()
             
@@ -179,8 +188,20 @@ def Chat(request, id):
         else:
             return render(request, 'perfiles/chat.html', {'form': form, 'mensaje': 'Formulario no válido'})
     else:
-        mensajes_recibidos = Mensajes.objects.filter(destinatario = request.user)
-        mensajes_enviados = Mensajes.objects.filter(emisor = request.user)
+        
         form = Chats()
         nombre = Perfil.objects.get(id = id)
-        return render(request, 'perfiles/chat.html', {'id': id, 'form': form, 'nombre': nombre, 'mensajes_recibidos': mensajes_recibidos, 'mensajes_enviados': mensajes_enviados})
+        
+        #filtramos de la db los mensajes que sean del usuario actual y el destinatario
+        mensajes_recibidos = Mensajes.objects.filter(destinatario = request.user.username).filter(emisor = nombre.usuario).order_by('-fecha')
+        
+        mensajes_enviados = Mensajes.objects.filter(emisor_id = request.user.id, destinatario = nombre).order_by('-fecha')[:8]
+    
+        
+        # tomamos la imagen para el usuario al que se le manda mensaje
+        imagen_chat = Avatar.objects.filter(usuario = nombre.usuario)
+        if len(imagen_chat) > 0:
+            imagen_chat = imagen_chat[0].img.url
+        
+        #retornamos con el dic necesario
+        return render(request, 'perfiles/chat.html', {'id': id, 'form': form, 'nombre': nombre, 'mensajes_recibidos': mensajes_recibidos, 'mensajes_enviados': mensajes_enviados, 'imagen': imagen, 'imagen_chat': imagen_chat})

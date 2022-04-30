@@ -17,8 +17,15 @@
     <div class="row gx-4 gx-lg-5 justify-content-center">
       <div class="col-md-10 col-lg-8 col-xl-7">
         <div class="site-heading">
-            <h2>Mensajes recibidos</h2>
-            
+            <h2>Chatear con:</h2>
+            {% for user in Usuarios %}
+            <p>
+              <a style="color:white; text-decoration:none" class="h4" href="{% url 'chat' user.id %}">
+                {{ user }} | <i class='far fa-comment-dots'></i>
+              </a>
+              
+            </p>
+            {% endfor %}
         </div>
       </div>
     </div>
@@ -27,16 +34,7 @@
 {% endblock masthead %}
 {% block contenido_inicio %}
 
-{% for user in Usuarios %}
-  <ul>
-    <li>
-      <a href="{% url 'chat' user.id %}">
-    
-     {{ user }}</a>
-    </li>
-  </ul>
 
-{% endfor %}
 
  
 
