@@ -1,1 +1,3 @@
-! [Imagen de portada](portada proyecto django.png)
+
+  <img src="portada proyecto django.png" width="100%" title="hover text">
+ 
