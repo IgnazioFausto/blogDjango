@@ -51,8 +51,8 @@
     <p>psycopg2==2.9.3</p>
       <h2 style="color:rgba(26, 255, 233, 1)">Casos de prueba registrados</h2>
   
-    <img src="unit test django 2022.png" width="100%" title="hover text"/>
+  
 </div>
-
+  <img src="unit test django 2022.png" width="100%" title="hover text"/>
     
 
