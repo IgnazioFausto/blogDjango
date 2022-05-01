@@ -1,5 +1,7 @@
 
   <img src="portada proyecto django.png" width="100%" title="hover text">
+  
+  ![Link al video de navegación en el Blog](https://www.youtube.com/watch?v=7jIikLn5tvA&ab_channel=IgnacioFern%C3%A1ndez)
  
  <div style="margin:1rem 20%">
     <h1 style="color:rgba(178, 220, 255, 1)">Mi Blog</h1>
