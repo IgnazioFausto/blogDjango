@@ -15,7 +15,7 @@ from perfiles.forms import Usuario_editar, AvatarFormulario
 
 # Create your views here.
 
-
+@login_required(login_url='login_form')
 def Perfiles(request):
     
     posts = Posteos_nuevos.objects.filter(autor_id = request.user.id)
@@ -30,9 +30,10 @@ def Perfiles(request):
         
         else:
             return render(request, 'perfiles/perfil.html')
+    
             
     
-@login_required(login_url='usuario/login/')
+@login_required(login_url='login_form')
 def actualizar_usuario(request):
     
     
@@ -127,11 +128,11 @@ def registro(request):
         return render(request, 'perfiles/registro.html', {'form': form})
 
 #avatars
-@login_required(login_url='login/')
+@login_required(login_url='login_form')
 def cargar_avatar(request):
-
     
     if request.method == 'POST':
+        
         formulario = AvatarFormulario(request.POST, request.FILES)
         
         if formulario.is_valid():
@@ -147,14 +148,12 @@ def cargar_avatar(request):
                 avatar.save()
         return redirect('inicio')
     else: 
-           
-                    
-                formulario = AvatarFormulario()
-                return render(request, 'perfiles/cargar_imagen.html', {'form': formulario})
+        formulario = AvatarFormulario()
+        return render(request, 'perfiles/cargar_imagen.html', {'form': formulario})
             
             
             
-@login_required(login_url='login/')
+@login_required(login_url='login_form')
 def Mensajeria(request):
     
     
@@ -162,7 +161,7 @@ def Mensajeria(request):
         
         return render(request, 'perfiles/mensajeria.html', {'Usuarios': Usuarios})
 
-@login_required(login_url='login/')
+@login_required(login_url='login_form')
 def Chat(request, id):
     
     # chequeamos si el user esta autenticado para usar su avatar

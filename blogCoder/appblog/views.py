@@ -68,7 +68,7 @@ def Post(request, id):
     
     return render(request, 'appblog/post.html', {'post': post, 'imagen': imagen})
 
-@login_required(login_url='/login/')
+@login_required(login_url='login_form')
 def Nuevo_posteo(request): 
     
     
@@ -114,7 +114,7 @@ def Post_random(request):
             else:
                 return render(request, 'appblog/inicio.html', {'aviso': 'No hay posts para mostrar. Ingresa y publica uno!'})
         
-@login_required(login_url='/login/')
+@login_required(login_url='login_form')
 def Editar_post(request, id):
    
     if request.user.is_authenticated:

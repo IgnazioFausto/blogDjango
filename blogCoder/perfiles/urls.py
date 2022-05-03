@@ -5,15 +5,17 @@ from django.contrib.auth.views import LogoutView
 from perfiles.views import *
 
 urlpatterns = [
-    path('', Perfiles, name='perfil'),
-    path('mensajes/', Mensajeria, name='mensajeria'),
+    #perfil
+    path('accounts/profile', Perfiles, name='perfil'),
+    #mensajeria
+    path('messages/', Mensajeria, name='mensajeria'),
     path('chat/<id>', Chat, name='chat'),
-    path('login/', login_form, name='login_form'),
-    path('actualizar_usuario/', actualizar_usuario, name='actualizar_usuario'),
-    path('cargar_imagen/', cargar_avatar, name='cargar_imagen'),
-    
-    path('usuario/login/', login_form, name='login_form'),
-    path('usuario/logout/', LogoutView.as_view(template_name='appblog/logout.html'), name='logout'),
-    path('usuario/registro/', registro, name='registro'),
+    #editar perfil
+    path('accounts/update_profile/', actualizar_usuario, name='actualizar_usuario'),
+    path('accounts/upload_image/', cargar_avatar, name='cargar_imagen'),
+    #registro, login y logout
+    path('accounts/login/', login_form, name='login_form'),
+    path('accounts/logout/', LogoutView.as_view(template_name='appblog/logout.html'), name='logout'),
+    path('accounts/signup/', registro, name='registro'),
 
 ]
