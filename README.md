@@ -49,15 +49,14 @@
     <p>virtualenv==20.13.3</p>
     <p>whitenoise==6.0.0</p>
     <p>psycopg2==2.9.3</p>
-<<<<<<< HEAD
+
 </div>
 
-=======
-      <h2 style="color:rgba(26, 255, 233, 1)">Casos de prueba registrados</h2>
+<h2 style="color:rgba(26, 255, 233, 1)">Casos de prueba registrados</h2>
   
   
 </div>
   <img src="unit test django 2022.png" width="100%" title="hover text"/>
->>>>>>> e0fd4d46239869587e6904ebed4d25588fe37521
+
     
 
