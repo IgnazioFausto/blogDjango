@@ -1,6 +1,8 @@
 
 from pathlib import Path
-import os
+import os;
+
+from django_heroku import DjangoHeroku
 
 # paquete para deploy
 
@@ -19,7 +21,7 @@ SECRET_KEY = 'django-insecure-5#@^jr-_dt^xj7fy)@b!4pu8h*3g!8nmo6jzo5up5ibfhh*u7x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -164,6 +166,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #url de login
 LOGIN_URL = '/login/'
+
+# Django-Heroku.
+django_heroku.settings(locals())
 
 
 
