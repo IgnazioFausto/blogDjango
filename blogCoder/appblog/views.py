@@ -101,7 +101,7 @@ def Post_random(request):
         posts = Posteos_nuevos.objects.all()
         if len(posts) > 0:
             post = posts[int(random()*len(posts))]
-            return redirect('/posts/publicados/{}'.format(post.id))
+            return redirect('/pages/{}'.format(post.id))
         else:
             if request.user.is_authenticated:
                 avatar = Avatar.objects.filter(usuario = request.user)
